@@ -1,2 +1,145 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+/*You have the starter code and you have 4 TODOS.
+Prepare to answer the questions
+1.Describe the purpose of this computing innovation.
+2.Explain how the use of data abstraction manages complexity in program code. 
+3.Identify inputs and corresponding expected outputs or behaviors that can be used to check the correctness of an algorithm or program. 
+4.Explain how the use of data abstraction manages complexity in program code.
+
+*/
+// libraries 
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+internal class Program 
+{
+ //global variables, list, arrays, etc. 
+
+    //create 2d array here, 3 x 3 matrix
+    private static int [][] threeByThreeBoard = new int[][] {
+            new int [] { 0, 0, 0 },
+            new int [] { 0, 0, 0 },
+            new int [] { 1, 1, 1 }
+        };
+//Need to create static because this will be called inside of main
+ //Changed from the static 3 assigned for each variable row and column and changed ot the length of each array.
+private static int rows = threeByThreeBoard.Length;
+private static int columns = threeByThreeBoard[0].Length;
+
+    private static void Main (string[] args)
+    {
+        //call your methods
+        //checks to see if the return value of winchecker 
+        if (WinChecker(threeByThreeBoard) == 0){
+            Console.WriteLine("There are no winners");
+        }
+        else 
+        {
+            Console.WriteLine("Winner: Player " + WinChecker(threeByThreeBoard));
+        }
+    }
+        //define your methods
+         public static int WinChecker(int [][] board)
+        {
+            //creates local variable that stores the return value
+            int horizontalResult = HorizontalWinner(board);
+            int verticalResult = VerticalWinner(board);
+            int diagonalResult = DiagonalWinner(board);
+            int diagonalOtherWayResult = DiagonalOtherWayWinner(board);
+        
+           //sets up condition checking the return values of each method... 
+          //TODO: CREATE A DIAGONAL CONDITION CHECKER 
+           if (horizontalResult != 0)
+                return horizontalResult;
+            else if (verticalResult != 0)
+                return verticalResult;
+            else if (diagonalResult !=0)
+                return diagonalResult;
+            else
+                return 0;
+        }
+
+        //method for horizontal winner, static because it'll be called in the main method
+    public static int HorizontalWinner(int[][] board)
+    {
+        for (int r = 0; r < rows; r++)
+        {
+            for (int c = 0; c < columns; c++)
+            {
+                if (c + 2 < columns                 && 
+                    board[r][c] != 0                &&
+                    board[r][c] == board[r][c + 1]  &&
+                    board[r][c] == board[r][c + 2]  
+                    )
+                {
+                    return board[r][c];
+                }
+            }
+        }
+        return 0;
+    }
+        
+   //TODO: USING THE HORIZONTALWINNER METHOD, CREATE THE VERTICAL WINNER METHOD
+    public static int VerticalWinner(int[][] board)
+    {
+        for(int c = 0; c < columns; c++)
+        {
+            for (int r=0; r< rows; r++)
+            {
+                if (r + 2 < rows                   &&
+                board[r][c] != 0                   &&
+                board[r][c] == board[r + 1][c]     &&
+                board[r][c] == board[r + 2][c]  
+                )
+                {
+                    return board[r][c];
+                }
+            }
+        }
+       
+        return 0;
+    }
+
+   //TODO: CREATE THE DIAGONALWINNER METHOD AND THE PROPER PARAMETER
+   public static int DiagonalWinner(int[][] board)
+    {
+        for(int c = 0; c < columns; c++)
+        {
+            for (int r=0; r< rows; r++)
+            {
+                if (r + 2 < rows                   &&
+                board[r][c] != 0                   &&
+                board[r][c] == board[r + 1][c + 1]     &&
+                board[r][c] == board[r + 2][c + 2]  
+                )
+                {
+                    return board[r][c];
+                }
+            }
+        }
+       
+        return 0;
+    }
+
+   //TODO: DO YOU HAVE TO CREATE ANY OTHER METHODS?  
+   //Would it be the DiagonalOtherWay
+      public static int DiagonalOtherWayWinner(int[][] board)
+    {
+        for(int c = 0; c < columns; c++)
+        {
+            for (int r=0; r< rows; r++)
+            {
+                if (r + 1 < rows && c + 1 < columns                 &&
+                board[r][c] != 0                                    &&
+                board[r][c] == board[r + 1][c + 1]                  &&
+                board[r][c] == board[r + 2][c]  
+                )
+                {
+                    return board[r][c];
+                }
+            }
+        }
+       
+        return 0;
+    }
+}
